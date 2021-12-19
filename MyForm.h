@@ -236,6 +236,10 @@ namespace FormsPoliz
 		size_t size = ex->getTable().GetCount();
 		dataGridView1->ColumnCount = 2;
 		dataGridView1->RowCount = size + 1;
+		for (size_t i = 1; i < size + 1; ++i)
+		{
+			dataGridView1->Rows[i]->Cells[1]->ReadOnly = false;
+		}
 		dataGridView1->Rows[0]->Cells[0]->Value = "Variable";
 		dataGridView1->Rows[0]->Cells[1]->Value = "Value";
 		dataGridView1->Rows[0]->Cells[1]->ReadOnly = true;
@@ -251,6 +255,9 @@ namespace FormsPoliz
 			String^ str2 = gcnew String(table[i - 1].getName().c_str());
 			dataGridView1->Rows[i]->Cells[0]->Value = str2;
 			dataGridView1->Rows[i]->Cells[1]->Value = System::Convert::ToString(table[i - 1].getValue());
+			if (str2[0] >= '0' && str2[0] <= '9')
+				dataGridView1->Rows[i]->Cells[1]->ReadOnly = true;
+
 			delete str2;
 		}
 	}
@@ -264,8 +271,6 @@ namespace FormsPoliz
 	private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) 
 	{
 	}
-
-
 
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
